@@ -8,6 +8,7 @@ import { DataState } from './enum/data-state.enum';
 import { Status } from './enum/status.enum';
 import { AppState } from './interface/app-state';
 import { CustomResponse } from './interface/custom-response';
+import { Server } from './interface/server';
 import { ServerService } from './service/server.service';
 
 @Component({

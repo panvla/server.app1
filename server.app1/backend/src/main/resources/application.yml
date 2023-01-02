@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    password: root
+    url: jdbc:mysql://localhost:3306/serverdb
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        type_for_enum: string
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format-sql: true
+      show-sql: true
