@@ -17,18 +17,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/server")
 @RequiredArgsConstructor
-public class Serverresource {
+public class ServerController {
 
     private final ServerServiceImpl serverService;
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getServers(){
+    public ResponseEntity<Response> getServers() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(3);
         return ResponseEntity.ok(
                 Response.builder()
                 .timeStamp(LocalDateTime.now())
@@ -39,7 +41,7 @@ public class Serverresource {
                 .build()
         );
     }
-    @GetMapping("/ping/{idAddress}")
+    @GetMapping("/ping/{ipAddress}")
     public ResponseEntity<Response> pingServer(@PathVariable("ipAddress") String ipAddress) throws IOException {
         Server server = serverService.ping(ipAddress);
         return ResponseEntity.ok(
@@ -91,7 +93,7 @@ public class Serverresource {
 
     @GetMapping(path = "/image/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] getServerImage(@PathVariable("fileName") String fileName) throws IOException{
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "Downloads/png" + fileName));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/Downloads/png/" + fileName));
     }
 
 }

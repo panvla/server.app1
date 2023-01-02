@@ -37,6 +37,7 @@ public class ServerServiceImpl implements ServerService {
         log.info("Pinging server IP: {}", ipAddress);
         Server server = serverRepository.findByIpAddress(ipAddress);
         InetAddress address = InetAddress.getByName(ipAddress);
+        log.info("Test is address isReachable " + address.isReachable(2000));
         server.setStatus(address.isReachable(10000)? Status.SERVER_UP : Status.SERVER_DOWN);
         serverRepository.save(server);
         return server;
@@ -69,6 +70,6 @@ public class ServerServiceImpl implements ServerService {
 
     private String setServerImageUrl() {
         String[] imageNames = {"server1.png", "server2.png", "server3.png", "server4.png"};
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/server/image" + imageNames[new Random().nextInt(4)]).toUriString();
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/server/image/" + imageNames[new Random().nextInt(4)]).toUriString();
     }
 }
